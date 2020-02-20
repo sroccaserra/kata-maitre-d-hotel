@@ -8,8 +8,8 @@
 
 (defn réserve-table
   ([places date]
-   (let [places-restantes (:places-restantes @livre)]
-     (if (<= places places-restantes)
-       (do (swap! livre assoc :places-restantes (- places-restantes places))
+   (let [différence (- (:places-restantes @livre) places)]
+     (if (>= différence 0)
+       (do (swap! livre assoc :places-restantes différence)
            {:accepté true})
        {:accepté false}))))

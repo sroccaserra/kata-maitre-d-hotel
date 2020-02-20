@@ -7,11 +7,8 @@
 ;; Note douze = taille max
 
 ;; ok: Une table pour une personne demain (idem)
-;; ok: Une table pour douze personnes aujourd'hui (idem)
-;; KO: Une table pour treize personnes aujourd'hui (idem)
 ;; ok: Une table pour une personne aujourd'hui (table de un déjà réservée à la même date)
 ;; ok: Une table pour une personne aujourd'hui (table de un déjà réservée à une autre date)
-;; KO: Une table pour une personne aujourd'hui (table de douze déjà réservée à la même date)
 ;; ok: Une table pour une personne aujourd'hui (table de douze déjà réservée à une autre date)
 
 (defn setup [f]
