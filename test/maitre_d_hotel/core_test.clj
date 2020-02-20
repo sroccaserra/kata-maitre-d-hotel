@@ -23,7 +23,11 @@
 
   (testing "Une table pour 2 puis 2 aujourd'hui"
     (is (true? (:accepté (réserve-table 2 "2020-02-20"
-                                        (réserve-table 2 "2020-02-20" livre-vide)))))))
+                                        (:livre (réserve-table 2 "2020-02-20" livre-vide)))))))
+
+  (testing "Une table pour 3 puis 3 aujourd'hui"
+    (is (true? (:accepté (réserve-table 3 "2020-02-20"
+                                        (:livre (réserve-table 3 "2020-02-20" livre-vide))))))))
 
 (deftest scénarios-qui-coincent
   (testing "Une table pour 13 aujourd'hui"
@@ -31,4 +35,4 @@
 
   (testing "Une table pour 12 puis une pour 1 aujourd'hui"
     (is (false? (:accepté (réserve-table 1 "2020-02-20"
-                                         (réserve-table nombre-de-places "2020-02-20" livre-vide)))))))
+                                         (:livre (réserve-table nombre-de-places "2020-02-20" livre-vide))))))))
