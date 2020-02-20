@@ -16,11 +16,14 @@
 
 (deftest scénarios-qui-fonctionnent
   (testing "Une table pour 1 aujourd'hui"
-    (is (réserve-table 1 "2020-02-20")))
+    (is (true? (:accepté (réserve-table 1 "2020-02-20")))))
 
   (testing "Une table pour 12 aujourd'hui"
-    (is (réserve-table 12 "2020-02-20"))))
+    (is (true? (:accepté (réserve-table 12 "2020-02-20"))))))
 
 (deftest scénarios-qui-coincent
   (testing "Une table pour 13 aujourd'hui"
-    (is (not (réserve-table (inc nombre-de-places) "2020-02-20")))))
+    (is (false? (:accepté (réserve-table (inc nombre-de-places) "2020-02-20")))))
+
+  (testing "Une table pour 12 puis une pour 1 aujourd'hui"
+    (is (false? (:accepté (réserve-table (réserve-table nombre-de-places "2020-02-20") 1 "2020-02-20"))))))
