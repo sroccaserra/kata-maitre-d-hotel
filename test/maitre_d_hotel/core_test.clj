@@ -14,25 +14,29 @@
 ;; KO: Une table pour une personne aujourd'hui (table de douze déjà réservée à la même date)
 ;; ok: Une table pour une personne aujourd'hui (table de douze déjà réservée à une autre date)
 
-(deftest scénarios-qui-fonctionnent
-  (testing "Une table pour 1 aujourd'hui"
-    (is (true? (:accepté (réserve-table 1 "2020-02-20" livre-vide)))))
+(defn setup [f]
+  (efface-livre)
+  (f))
 
-  (testing "Une table pour 12 aujourd'hui"
-    (is (true? (:accepté (réserve-table 12 "2020-02-20" livre-vide)))))
+(use-fixtures :each setup)
 
-  (testing "Une table pour 2 puis 2 aujourd'hui"
-    (is (true? (:accepté (réserve-table 2 "2020-02-20"
-                                        (:livre (réserve-table 2 "2020-02-20" livre-vide)))))))
+(deftest une-table-pour-1-aujourd'hui
+    (is (true? (:accepté (réserve-table 1 "2020-02-20")))))
 
-  (testing "Une table pour 3 puis 3 aujourd'hui"
-    (is (true? (:accepté (réserve-table 3 "2020-02-20"
-                                        (:livre (réserve-table 3 "2020-02-20" livre-vide))))))))
+(deftest Une-table-pour-12-aujourd'hui
+    (is (true? (:accepté (réserve-table 12 "2020-02-20")))))
 
-(deftest scénarios-qui-coincent
-  (testing "Une table pour 13 aujourd'hui"
-    (is (false? (:accepté (réserve-table (inc nombre-de-places) "2020-02-20" livre-vide)))))
+(deftest une-table-pour-2-puis-2-aujourd'hui
+  (réserve-table 2 "2020-02-20")
+  (is (true? (:accepté (réserve-table 2 "2020-02-20")))))
 
-  (testing "Une table pour 12 puis une pour 1 aujourd'hui"
-    (is (false? (:accepté (réserve-table 1 "2020-02-20"
-                                         (:livre (réserve-table nombre-de-places "2020-02-20" livre-vide))))))))
+(deftest une-table-pour-3-puis-3-aujourd'hui
+  (réserve-table 3 "2020-02-20")
+  (is (true? (:accepté (réserve-table 3 "2020-02-20")))))
+
+(deftest une-table-pour-13-aujourd'hui
+  (is (false? (:accepté (réserve-table (inc nombre-de-places) "2020-02-20")))))
+
+(deftest une-table-pour-12-puis-une-pour-1-aujourd'hui
+  (réserve-table nombre-de-places "2020-02-20")
+  (is (false? (:accepté (réserve-table 1 "2020-02-20")))))
