@@ -1,12 +1,8 @@
 (ns maitre-d-hotel.core)
 
 (def nombre-de-places 12)
-(def livre-vide {})
+(def livre-vide {:places-restantes nombre-de-places})
 
-(defn réserve-table [places date livre]
-  (if (= livre-vide livre)
-    {:accepté (<= places nombre-de-places) :livre nil}
-    (condp = places
-      2 {:accepté true :livre livre}
-      3 {:accepté true :livre livre}
-      {:accepté false :livre livre})))
+(defn réserve-table [places date {places-restantes :places-restantes}]
+  {:accepté (<= places places-restantes)
+   :livre {:places-restantes (- places-restantes places)}})
