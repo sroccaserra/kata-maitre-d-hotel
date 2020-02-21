@@ -1,14 +1,8 @@
 (ns maitre-d-hotel.core-test
   (:require [clojure.test :refer :all]
             [maitre-d-hotel.core :refer :all]))
-;;;
-;; Test list
 
 ;; Note : douze = taille max
-
-;; ok: Une table pour une personne demain (idem)
-;; ok: Une table pour une personne aujourd'hui (table de un déjà réservée à la même date)
-;; ok: Une table pour une personne aujourd'hui (table de un déjà réservée à une autre date)
 
 (def aujourd'hui "2020-02-20")
 (def demain "2020-02-21")

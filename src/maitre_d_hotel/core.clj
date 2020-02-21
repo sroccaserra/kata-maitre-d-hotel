@@ -1,22 +1,22 @@
 (ns maitre-d-hotel.core)
 
 (def nombre-de-places 12)
-(def livre-vide {:places-réservées 0})
+(def livre-vide {:places-réservées {}})
 (def livre (atom livre-vide))
 
 (defn efface-livre []
   (reset! livre livre-vide))
 
 (defn ^:private sont-disponibles [places date livre]
-  (or (contains? #{"2020-02-21" "2020-02-22"} date)
-      (<= places (- nombre-de-places (:places-réservées livre)))))
+  (<= places (- nombre-de-places (or ((livre :places-réservées) date)
+                                     0))))
 
-(defn ^:private réserve [places {:keys [places-réservées] :as livre}]
-  (assoc livre :places-réservées (+ places-réservées places)))
+(defn ^:private réserve [places date {{places-réservées date} :places-réservées :as livre}]
+  (assoc-in livre [:places-réservées date] (+ (or places-réservées 0) places)))
 
 (defn ^:private traite-demande [livre places date]
   (if (sont-disponibles places date livre)
-    (réserve places livre)
+    (réserve places date livre)
     livre))
 
 (defn réserve-table
