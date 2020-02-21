@@ -9,9 +9,9 @@
 ;; ok: Une table pour une personne demain (idem)
 ;; ok: Une table pour une personne aujourd'hui (table de un déjà réservée à la même date)
 ;; ok: Une table pour une personne aujourd'hui (table de un déjà réservée à une autre date)
-;; ok: Une table pour une personne aujourd'hui (table de douze déjà réservée à une autre date)
 
 (def aujourd'hui "2020-02-20")
+(def demain "2020-02-21")
 
 (defn setup [f]
   (efface-livre)
@@ -39,3 +39,7 @@
 (deftest une-table-pour-12-puis-une-pour-1-aujourd'hui
   (réserve-table nombre-de-places aujourd'hui)
   (is (false? (:accepté (réserve-table 1 aujourd'hui)))))
+
+(deftest une-table-pour-12-aujourd'hui-et-une-table-de-un-demain
+  (réserve-table nombre-de-places aujourd'hui)
+  (is (true? (:accepté (réserve-table 1 demain)))))
