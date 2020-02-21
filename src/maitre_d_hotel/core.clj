@@ -8,12 +8,11 @@
 
 (defn traite-demande [livre places]
   (let [différence (- (:places-restantes livre) places)]
-    (when (>= différence 0)
-      (assoc livre :places-restantes différence))))
+    (if (>= différence 0)
+      (assoc livre :places-restantes différence)
+      livre)))
 
 (defn réserve-table
   ([places date]
-   (if (>= (- (:places-restantes @livre) places) 0)
-     (do (swap! livre traite-demande places)
-         {:accepté true})
-     {:accepté false})))
+   (let [[ancien nouveau] (swap-vals! livre traite-demande places)]
+     {:accepté (not (= ancien nouveau))})))
