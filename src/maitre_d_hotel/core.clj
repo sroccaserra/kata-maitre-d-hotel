@@ -7,10 +7,16 @@
 (defn efface-livre []
   (reset! livre livre-vide))
 
-(defn ^:private traite-demande [{places-restantes :places-restantes :as livre} places]
-  (assoc livre :places-restantes (if (<= places places-restantes)
-                                   (- places-restantes places)
-                                   places-restantes)))
+(defn ^:private sont-disponibles [places livre]
+  (<= places (:places-restantes livre)))
+
+(defn ^:private réserve [places {:keys [places-restantes] :as livre}]
+  (assoc livre :places-restantes (- places-restantes places)))
+
+(defn ^:private traite-demande [livre places]
+(if (sont-disponibles places livre)
+  (réserve places livre)
+  livre))
 
 (defn réserve-table
   ([places date]
