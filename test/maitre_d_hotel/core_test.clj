@@ -4,7 +4,7 @@
 ;;;
 ;; Test list
 
-;; Note douze = taille max
+;; Note : douze = taille max
 
 ;; ok: Une table pour une personne demain (idem)
 ;; ok: Une table pour une personne aujourd'hui (table de un déjà réservée à la même date)

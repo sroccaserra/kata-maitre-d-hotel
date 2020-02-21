@@ -14,9 +14,9 @@
   (assoc livre :places-restantes (- places-restantes places)))
 
 (defn ^:private traite-demande [livre places]
-(if (sont-disponibles places livre)
-  (réserve places livre)
-  livre))
+  (if (sont-disponibles places livre)
+    (réserve places livre)
+    livre))
 
 (defn réserve-table
   ([places date]
