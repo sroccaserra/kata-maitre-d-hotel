@@ -6,10 +6,14 @@
 (defn efface-livre []
   (swap! livre assoc :places-restantes nombre-de-places))
 
+(defn traite-demande [livre places]
+  (let [différence (- (:places-restantes livre) places)]
+    (when (>= différence 0)
+      (assoc livre :places-restantes différence))))
+
 (defn réserve-table
   ([places date]
-   (let [différence (- (:places-restantes @livre) places)]
-     (if (>= différence 0)
-       (do (swap! livre assoc :places-restantes différence)
-           {:accepté true})
-       {:accepté false}))))
+   (if (>= (- (:places-restantes @livre) places) 0)
+     (do (swap! livre traite-demande places)
+         {:accepté true})
+     {:accepté false})))
