@@ -7,7 +7,7 @@
 (def après-demain "2020-02-22")
 
 (defn setup [f]
-  (efface-livre)
+  (efface-registre)
   (f))
 
 (use-fixtures :each setup)
