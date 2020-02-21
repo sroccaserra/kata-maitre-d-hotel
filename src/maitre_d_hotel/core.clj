@@ -11,7 +11,7 @@
 (defn ^:private places-réservées [date registre]
   (get registre date 0))
 
-(defn ^:private sont-disponibles [places date registre]
+(defn ^:private sont-disponibles? [places date registre]
   (<= (+ places (places-réservées date registre))
       nombre-de-places-max))
 
@@ -20,7 +20,7 @@
                           (places-réservées date registre))))
 
 (defn ^:private traite-demande [registre places date]
-  (if (sont-disponibles places date registre)
+  (if (sont-disponibles? places date registre)
     (réserve places date registre)
     registre))
 
