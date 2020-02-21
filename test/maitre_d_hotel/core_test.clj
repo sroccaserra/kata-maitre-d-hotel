@@ -12,6 +12,7 @@
 
 (def aujourd'hui "2020-02-20")
 (def demain "2020-02-21")
+(def après-demain "2020-02-22")
 
 (defn setup [f]
   (efface-livre)
@@ -43,3 +44,7 @@
 (deftest une-table-pour-12-aujourd'hui-et-une-table-de-un-demain
   (réserve-table nombre-de-places aujourd'hui)
   (is (true? (:accepté (réserve-table 1 demain)))))
+
+(deftest une-table-pour-12-aujourd'hui-et-une-table-de-un-après-demain
+  (réserve-table nombre-de-places aujourd'hui)
+  (is (true? (:accepté (réserve-table 1 après-demain)))))
