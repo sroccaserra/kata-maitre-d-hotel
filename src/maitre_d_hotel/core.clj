@@ -12,10 +12,12 @@
   (or (registre date) 0))
 
 (defn ^:private sont-disponibles [places date registre]
-  (<= (+ places (places-réservées date registre)) nombre-de-places-max))
+  (<= (+ places (places-réservées date registre))
+      nombre-de-places-max))
 
 (defn ^:private réserve [places date registre]
-  (assoc registre date (+ places (places-réservées date registre))))
+  (assoc registre date (+ places
+                          (places-réservées date registre))))
 
 (defn ^:private traite-demande [registre places date]
   (if (sont-disponibles places date registre)
@@ -25,4 +27,4 @@
 (defn réserve-table
   ([places date]
    (let [[ancien nouveau] (swap-vals! registre traite-demande places date)]
-       {:accepté (not= ancien nouveau)})))
+     {:accepté (not= ancien nouveau)})))

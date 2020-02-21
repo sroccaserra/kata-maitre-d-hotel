@@ -13,10 +13,10 @@
 (use-fixtures :each setup)
 
 (deftest une-table-pour-1-aujourd'hui
-    (is (true? (:accepté (réserve-table 1 aujourd'hui)))))
+  (is (true? (:accepté (réserve-table 1 aujourd'hui)))))
 
-(deftest Une-table-pour-12-aujourd'hui
-    (is (true? (:accepté (réserve-table 12 aujourd'hui)))))
+(deftest une-table-pour-12-aujourd'hui
+  (is (true? (:accepté (réserve-table 12 aujourd'hui)))))
 
 (deftest une-table-pour-13-aujourd'hui
   (is (false? (:accepté (réserve-table (inc nombre-de-places-max) aujourd'hui)))))
