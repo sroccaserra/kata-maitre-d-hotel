@@ -9,7 +9,7 @@
   (reset! registre registre-vide))
 
 (defn ^:private places-réservées [date registre]
-  (or (registre date) 0))
+  (get registre date 0))
 
 (defn ^:private sont-disponibles [places date registre]
   (<= (+ places (places-réservées date registre))
