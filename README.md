@@ -1,4 +1,4 @@
-Partie 1 du kata [maitre d'](md).
+Partie 1 du kata [maitre d'][md].
 
 Normallement, l'implémentation de la réservation est atomique : si plusieurs
 réservations arrivent en même temps, l'une est traitée en premier et l'autre
